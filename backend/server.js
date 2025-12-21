@@ -18,7 +18,7 @@ connectDB();
 
 // ✅ Allowed Origins
 const allowedOrigins = [
-  "https://data-gathering-project.vercel.app",
+  "https://id-card-project-six.vercel.app",
   "https://www.allaroundaid.com",
   "https://allaroundaid.com",  // optional but recommended
   "http://localhost:5173"
