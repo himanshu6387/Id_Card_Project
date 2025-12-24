@@ -12,6 +12,8 @@ dotenv.config();
 
 const app = express();
 
+// console.log(process.env.CLOUDINARY_API_KEY)
+
 // ✅ Connect DB
 connectDB();
 
