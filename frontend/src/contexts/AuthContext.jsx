@@ -29,20 +29,32 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   };
 
-  const login = async (email, password) => {
-    const response = await axios.post('https://id-card-project.onrender.com/api/auth/login', {
-      email,
-      password,
-    });
+const login = async (email, password) => {
+  const response = await axios.post(
+    "https://id-card-project.onrender.com/api/auth/login",
+    { email, password },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+      timeout: 10000, // ⏱️ prevents long hanging
+    }
+  );
 
-    const { token, ...userData } = response.data;
-    localStorage.setItem('token', token);
-    setToken(token);
-    setUser(userData);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  const { token, ...userData } = response.data;
 
-    return userData;
-  };
+  localStorage.setItem("token", token);
+  setToken(token);
+  setUser(userData);
+
+  // ✅ set AFTER successful login
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+  return userData;
+};
+
+
 
   const logout = () => {
     localStorage.removeItem('token');
