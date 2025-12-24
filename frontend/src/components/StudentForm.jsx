@@ -47,7 +47,7 @@ const StudentForm = () => {
 
   const fetchLinkDetails = async () => {
     try {
-      const response = await axios.get(`https://id-card-project.onrender.com/api/student/link/${linkId}`);
+      const response = await axios.get(`https://id-card-project-2.onrender.com/api/student/link/${linkId}`);
       setLinkDetails(response.data);
     } catch (error) {
       toast.error('Invalid or expired link');
@@ -78,7 +78,7 @@ const StudentForm = () => {
   const handleRemoveBackground = async () => {
     setRemovingBg(true);
     try {
-      const response = await axios.post('https://id-card-project.onrender.com/api/student/remove-background', {
+      const response = await axios.post('https://id-card-project-2.onrender.com/api/student/remove-background', {
         image: originalImage
       });
       
@@ -198,7 +198,7 @@ const StudentForm = () => {
       submitData.append('email', formData.email);
       
       await axios.post(
-        `https://id-card-project.onrender.com/api/student/submit/${linkId}`,
+        `https://id-card-project-2.onrender.com/api/student/submit/${linkId}`,
         submitData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
