@@ -384,56 +384,84 @@ const CollegeDashboard = () => {
 
             <div className="p-8">
               {/* ID Card Preview */}
-              <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 rounded-3xl shadow-2xl">
-                <div className="bg-white rounded-2xl p-8 shadow-xl">
+              {/* ID Card Preview */}
+              <div className="bg-gradient-to-br from-slate-800 via-indigo-900 to-purple-900 p-1 rounded-3xl shadow-2xl">
+                <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 rounded-3xl p-8 shadow-xl relative overflow-hidden">
+                  {/* Decorative Elements */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
+                  <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
+                  
                   {/* Header */}
-                  <div className="text-center mb-6 pb-4 border-b-2 border-indigo-600">
-                    <h3 className="text-3xl font-bold text-white">{user.collegeName}</h3>
-                    <p className="text-lg font-semibold text-white mt-2">STUDENT ID CARD</p>
+                  <div className="text-center mb-8 pb-6 border-b-2 border-white/30 relative z-10">
+                    <div className="inline-block bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl mb-3">
+                      <h3 className="text-3xl font-bold text-white tracking-wide">{user.collegeName}</h3>
+                    </div>
+                    <p className="text-xl font-bold text-white/90 mt-3 tracking-widest">STUDENT ID CARD</p>
                   </div>
 
-                  <div className="flex gap-8">
+                  <div className="flex gap-8 relative z-10">
                     {/* Left: Image */}
                     <div className="flex-shrink-0">
-                      <img
-                        src={previewStudent.studentImage}
-                        alt={previewStudent.name}
-                        className="w-48 h-48 rounded-full object-cover ring-4 ring-indigo-500"
-                      />
+                      <div className="bg-white/10 backdrop-blur-sm p-2 rounded-2xl">
+                        <img
+                          src={previewStudent.studentImage}
+                          alt={previewStudent.name}
+                          className="w-48 h-48 rounded-xl object-cover ring-4 ring-white/50 shadow-2xl"
+                        />
+                      </div>
                     </div>
 
                     {/* Right: Details */}
-                    <div className="flex-1 space-y-3">
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Name:</span>
-                        <span className="text-white font-semibold">{previewStudent.name}</span>
+                    <div className="flex-1 space-y-4">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                        <div className="flex items-start">
+                          <span className="font-bold text-white/80 w-32 text-sm uppercase tracking-wide">Name:</span>
+                          <span className="text-white font-bold text-lg">{previewStudent.name}</span>
+                        </div>
                       </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Admission No:</span>
-                        <span className="text-white font-mono">{previewStudent.admissionNo}</span>
+                      
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                        <div className="flex items-start">
+                          <span className="font-bold text-white/80 w-32 text-sm uppercase tracking-wide">Admission No:</span>
+                          <span className="text-white font-mono font-bold text-lg">{previewStudent.admissionNo}</span>
+                        </div>
                       </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Class:</span>
-                        <span className="text-white">{previewStudent.class} - {previewStudent.section}</span>
+                      
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                        <div className="flex items-start">
+                          <span className="font-bold text-white/80 w-32 text-sm uppercase tracking-wide">Class:</span>
+                          <span className="text-white font-semibold text-lg">{previewStudent.class} - {previewStudent.section}</span>
+                        </div>
                       </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Phone:</span>
-                        <span className="text-white">{previewStudent.phone}</span>
+                      
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                        <div className="flex items-start">
+                          <span className="font-bold text-white/80 w-32 text-sm uppercase tracking-wide">Phone:</span>
+                          <span className="text-white font-semibold text-lg">{previewStudent.phone}</span>
+                        </div>
                       </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Father:</span>
-                        <span className="text-white">{previewStudent.fatherName}</span>
+                      
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                        <div className="flex items-start">
+                          <span className="font-bold text-white/80 w-32 text-sm uppercase tracking-wide">Father:</span>
+                          <span className="text-white font-semibold text-lg">{previewStudent.fatherName}</span>
+                        </div>
                       </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">DOB:</span>
-                        <span className="text-white">{new Date(previewStudent.dob).toLocaleDateString()}</span>
+                      
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                        <div className="flex items-start">
+                          <span className="font-bold text-white/80 w-32 text-sm uppercase tracking-wide">DOB:</span>
+                          <span className="text-white font-semibold text-lg">{new Date(previewStudent.dob).toLocaleDateString()}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Footer */}
-                  <div className="mt-6 pt-4 border-t-2 border-indigo-600 text-center">
-                    <p className="text-gray-600 italic">Valid for Academic Year 2024-2025</p>
+                  <div className="mt-8 pt-6 border-t-2 border-white/30 text-center relative z-10">
+                    <div className="inline-block bg-white/10 backdrop-blur-sm px-6 py-3 rounded-xl">
+                      <p className="text-white font-semibold tracking-wide">Valid for Academic Year 2024-2025</p>
+                    </div>
                   </div>
                 </div>
               </div>
