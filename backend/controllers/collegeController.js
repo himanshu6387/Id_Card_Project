@@ -162,22 +162,13 @@ async function generateIDCard(student, collegeName) {
   const canvas = createCanvas(width, height);
   const ctx = canvas.getContext('2d');
 
-  // Outer border gradient (dark frame)
-  const outerGradient = ctx.createLinearGradient(0, 0, 0, height);
-  outerGradient.addColorStop(0, '#1e293b');
-  outerGradient.addColorStop(0.5, '#312e81');
-  outerGradient.addColorStop(1, '#581c87');
-  ctx.fillStyle = outerGradient;
-  ctx.fillRect(0, 0, width, height);
-
   // Main card background with gradient (purple to blue)
-  const cardGradient = ctx.createLinearGradient(0, 30, 0, height - 30);
+  const cardGradient = ctx.createLinearGradient(0, 0, 0, height);
   cardGradient.addColorStop(0, '#4f46e5');   // Indigo
   cardGradient.addColorStop(0.5, '#7c3aed'); // Purple
   cardGradient.addColorStop(1, '#2563eb');   // Blue
   ctx.fillStyle = cardGradient;
-  ctx.roundRect(8, 8, width - 16, height - 16, 25);
-  ctx.fill();
+  ctx.fillRect(0, 0, width, height);
 
   // Decorative circles (subtle background elements)
   ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
@@ -190,8 +181,10 @@ async function generateIDCard(student, collegeName) {
 
   // Header section with semi-transparent background
   ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-  ctx.roundRect(40, 40, width - 80, 100, 15);
-  ctx.fill();
+  ctx.fillRect(40, 40, width - 80, 100);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(40, 40, width - 80, 100);
 
   // College name
   ctx.fillStyle = 'white';
@@ -252,8 +245,10 @@ async function generateIDCard(student, collegeName) {
   const drawDetail = (label, value, y) => {
     // Semi-transparent card for each detail
     ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-    ctx.roundRect(detailsX - 15, y - 28, 580, 42, 10);
-    ctx.fill();
+    ctx.fillRect(detailsX - 15, y - 28, 580, 42);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(detailsX - 15, y - 28, 580, 42);
 
     // Label (lighter white)
     ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
@@ -296,8 +291,10 @@ async function generateIDCard(student, collegeName) {
   const qrY = height - qrSize - 85;
   
   ctx.fillStyle = 'white';
-  ctx.roundRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, 15);
-  ctx.fill();
+  ctx.fillRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
+  ctx.strokeStyle = '#4f46e5';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
   
   // Draw QR code
   ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
@@ -310,8 +307,10 @@ async function generateIDCard(student, collegeName) {
 
   // Footer with semi-transparent background
   ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-  ctx.roundRect(80, height - 60, width - 160, 40, 10);
-  ctx.fill();
+  ctx.fillRect(80, height - 60, width - 160, 40);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(80, height - 60, width - 160, 40);
 
   ctx.fillStyle = 'white';
   ctx.font = 'bold 18px Arial';
