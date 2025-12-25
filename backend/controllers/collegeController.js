@@ -162,43 +162,61 @@ async function generateIDCard(student, collegeName) {
   const canvas = createCanvas(width, height);
   const ctx = canvas.getContext('2d');
 
-  // Background gradient
-  const gradient = ctx.createLinearGradient(0, 0, 0, height);
-  gradient.addColorStop(0, '#667eea');
-  gradient.addColorStop(1, '#764ba2');
-  ctx.fillStyle = gradient;
+  // Outer border gradient (dark frame)
+  const outerGradient = ctx.createLinearGradient(0, 0, 0, height);
+  outerGradient.addColorStop(0, '#1e293b');
+  outerGradient.addColorStop(0.5, '#312e81');
+  outerGradient.addColorStop(1, '#581c87');
+  ctx.fillStyle = outerGradient;
   ctx.fillRect(0, 0, width, height);
 
-  // White card overlay
-  ctx.fillStyle = 'white';
-  ctx.roundRect(40, 40, width - 80, height - 80, 20);
+  // Main card background with gradient (purple to blue)
+  const cardGradient = ctx.createLinearGradient(0, 30, 0, height - 30);
+  cardGradient.addColorStop(0, '#4f46e5');   // Indigo
+  cardGradient.addColorStop(0.5, '#7c3aed'); // Purple
+  cardGradient.addColorStop(1, '#2563eb');   // Blue
+  ctx.fillStyle = cardGradient;
+  ctx.roundRect(8, 8, width - 16, height - 16, 25);
   ctx.fill();
 
-  // Top bar with college name
-  const topBarGradient = ctx.createLinearGradient(40, 40, width - 40, 100);
-  topBarGradient.addColorStop(0, '#667eea');
-  topBarGradient.addColorStop(1, '#764ba2');
-  ctx.fillStyle = topBarGradient;
-  ctx.roundRect(40, 40, width - 80, 80, [20, 20, 0, 0]);
+  // Decorative circles (subtle background elements)
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+  ctx.beginPath();
+  ctx.arc(width - 150, -50, 200, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-50, height - 100, 180, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Header section with semi-transparent background
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+  ctx.roundRect(40, 40, width - 80, 100, 15);
   ctx.fill();
 
   // College name
   ctx.fillStyle = 'white';
-  ctx.font = 'bold 32px Arial';
+  ctx.font = 'bold 38px Arial';
   ctx.textAlign = 'center';
   ctx.fillText(collegeName.toUpperCase(), width / 2, 90);
 
   // "STUDENT ID CARD" text
-  ctx.font = 'bold 20px Arial';
-  ctx.fillText('STUDENT ID CARD', width / 2, 150);
+  ctx.font = 'bold 22px Arial';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+  ctx.fillText('STUDENT ID CARD', width / 2, 125);
 
-  // Load and draw student image
+  // Load and draw student image with frame
   try {
     const img = await loadImage(student.studentImage);
-    const imgSize = 180;
-    const imgX = 80;
+    const imgSize = 200;
+    const imgX = 70;
     const imgY = 180;
     
+    // White background circle for image
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.beginPath();
+    ctx.arc(imgX + imgSize / 2, imgY + imgSize / 2, imgSize / 2 + 10, 0, Math.PI * 2);
+    ctx.fill();
+
     // Draw circular image
     ctx.save();
     ctx.beginPath();
@@ -208,8 +226,8 @@ async function generateIDCard(student, collegeName) {
     ctx.drawImage(img, imgX, imgY, imgSize, imgSize);
     ctx.restore();
 
-    // Border around image
-    ctx.strokeStyle = '#667eea';
+    // Border around image (white glow)
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.arc(imgX + imgSize / 2, imgY + imgSize / 2, imgSize / 2, 0, Math.PI * 2);
@@ -217,35 +235,42 @@ async function generateIDCard(student, collegeName) {
   } catch (error) {
     console.error('Error loading student image:', error);
     // Draw placeholder if image fails
-    ctx.fillStyle = '#e0e0e0';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
     ctx.beginPath();
-    ctx.arc(170, 270, 90, 0, Math.PI * 2);
+    ctx.arc(170, 280, 100, 0, Math.PI * 2);
     ctx.fill();
   }
 
   // Student details section
-  const detailsX = 300;
+  const detailsX = 320;
   let detailsY = 200;
-  const lineHeight = 45;
+  const lineHeight = 48;
 
   ctx.textAlign = 'left';
   
-  // Helper function to draw detail row
+  // Helper function to draw detail row with card background
   const drawDetail = (label, value, y) => {
-    ctx.fillStyle = '#667eea';
-    ctx.font = 'bold 20px Arial';
+    // Semi-transparent card for each detail
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.roundRect(detailsX - 15, y - 28, 580, 42, 10);
+    ctx.fill();
+
+    // Label (lighter white)
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.font = 'bold 18px Arial';
     ctx.fillText(label, detailsX, y);
     
-    ctx.fillStyle = '#333';
-    ctx.font = '20px Arial';
-    ctx.fillText(value, detailsX + 180, y);
+    // Value (bright white)
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 20px Arial';
+    ctx.fillText(value, detailsX + 160, y);
   };
 
-  drawDetail('Name:', student.name, detailsY);
-  drawDetail('Admission No:', student.admissionNo, detailsY += lineHeight);
-  drawDetail('Class:', `${student.class} - ${student.section}`, detailsY += lineHeight);
-  drawDetail('Phone:', student.phone, detailsY += lineHeight);
-  drawDetail('Father:', student.fatherName, detailsY += lineHeight);
+  drawDetail('NAME:', student.name.toUpperCase(), detailsY);
+  drawDetail('ADMISSION NO:', student.admissionNo, detailsY += lineHeight);
+  drawDetail('CLASS:', `${student.class} - ${student.section}`, detailsY += lineHeight);
+  drawDetail('PHONE:', student.phone, detailsY += lineHeight);
+  drawDetail('FATHER:', student.fatherName, detailsY += lineHeight);
   drawDetail('DOB:', new Date(student.dob).toLocaleDateString(), detailsY += lineHeight);
 
   // Generate QR code with student details
@@ -256,57 +281,73 @@ async function generateIDCard(student, collegeName) {
     email: student.email
   });
 
-  const qrCodeDataURL = await QRCode.toDataURL(qrData, { width: 120 });
+  const qrCodeDataURL = await QRCode.toDataURL(qrData, { 
+    width: 130,
+    color: {
+      dark: '#4f46e5',
+      light: '#ffffff'
+    }
+  });
   const qrImg = await loadImage(qrCodeDataURL);
   
-  // Draw QR code
-  const qrSize = 120;
+  // QR code background
+  const qrSize = 130;
   const qrX = width - qrSize - 80;
-  const qrY = height - qrSize - 60;
+  const qrY = height - qrSize - 85;
+  
+  ctx.fillStyle = 'white';
+  ctx.roundRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, 15);
+  ctx.fill();
+  
+  // Draw QR code
   ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 
   // QR code label
-  ctx.fillStyle = '#666';
-  ctx.font = '14px Arial';
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 14px Arial';
   ctx.textAlign = 'center';
-  ctx.fillText('Scan for Details', qrX + qrSize / 2, qrY + qrSize + 20);
+  ctx.fillText('SCAN FOR DETAILS', qrX + qrSize / 2, qrY + qrSize + 30);
 
-  // Footer
-  ctx.fillStyle = '#667eea';
-  ctx.font = 'italic 16px Arial';
+  // Footer with semi-transparent background
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+  ctx.roundRect(80, height - 60, width - 160, 40, 10);
+  ctx.fill();
+
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 18px Arial';
   ctx.textAlign = 'center';
-  ctx.fillText('Valid for Academic Year 2024-2025', width / 2, height - 30);
+  ctx.fillText('VALID FOR ACADEMIC YEAR 2024-2025', width / 2, height - 32);
 
-  // Decorative corner elements
-  ctx.strokeStyle = '#667eea';
+  // Decorative corner accents (white)
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
   ctx.lineWidth = 3;
   
   // Top left corner
   ctx.beginPath();
-  ctx.moveTo(60, 80);
-  ctx.lineTo(60, 60);
-  ctx.lineTo(80, 60);
+  ctx.moveTo(30, 70);
+  ctx.lineTo(30, 30);
+  ctx.lineTo(70, 30);
   ctx.stroke();
 
   // Top right corner
   ctx.beginPath();
-  ctx.moveTo(width - 80, 60);
-  ctx.lineTo(width - 60, 60);
-  ctx.lineTo(width - 60, 80);
+  ctx.moveTo(width - 70, 30);
+  ctx.lineTo(width - 30, 30);
+  ctx.lineTo(width - 30, 70);
   ctx.stroke();
 
   // Bottom left corner
   ctx.beginPath();
-  ctx.moveTo(60, height - 80);
-  ctx.lineTo(60, height - 60);
-  ctx.lineTo(80, height - 60);
+  ctx.moveTo(30, height - 70);
+  ctx.lineTo(30, height - 30);
+  ctx.lineTo(70, height - 30);
   ctx.stroke();
 
   // Bottom right corner
   ctx.beginPath();
-  ctx.moveTo(width - 80, height - 60);
-  ctx.lineTo(width - 60, height - 60);
-  ctx.lineTo(width - 60, height - 80);
+  ctx.moveTo(width - 70, height - 30);
+  ctx.lineTo(width - 30, height - 30);
+  ctx.lineTo(width - 30, height - 70);
   ctx.stroke();
 
   return canvas.toBuffer('image/png');
