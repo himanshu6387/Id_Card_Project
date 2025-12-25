@@ -388,8 +388,8 @@ const CollegeDashboard = () => {
                 <div className="bg-white rounded-2xl p-8 shadow-xl">
                   {/* Header */}
                   <div className="text-center mb-6 pb-4 border-b-2 border-indigo-600">
-                    <h3 className="text-3xl font-bold text-indigo-600">{user.collegeName}</h3>
-                    <p className="text-lg font-semibold text-gray-700 mt-2">STUDENT ID CARD</p>
+                    <h3 className="text-3xl font-bold text-white">{user.collegeName}</h3>
+                    <p className="text-lg font-semibold text-white mt-2">STUDENT ID CARD</p>
                   </div>
 
                   <div className="flex gap-8">
@@ -405,28 +405,28 @@ const CollegeDashboard = () => {
                     {/* Right: Details */}
                     <div className="flex-1 space-y-3">
                       <div className="flex items-start">
-                        <span className="font-bold text-indigo-600 w-32">Name:</span>
-                        <span className="text-gray-900 font-semibold">{previewStudent.name}</span>
+                        <span className="font-bold text-white w-32">Name:</span>
+                        <span className="text-white font-semibold">{previewStudent.name}</span>
                       </div>
                       <div className="flex items-start">
-                        <span className="font-bold text-indigo-600 w-32">Admission No:</span>
-                        <span className="text-gray-900 font-mono">{previewStudent.admissionNo}</span>
+                        <span className="font-bold text-white w-32">Admission No:</span>
+                        <span className="text-white font-mono">{previewStudent.admissionNo}</span>
                       </div>
                       <div className="flex items-start">
-                        <span className="font-bold text-indigo-600 w-32">Class:</span>
-                        <span className="text-gray-900">{previewStudent.class} - {previewStudent.section}</span>
+                        <span className="font-bold text-white w-32">Class:</span>
+                        <span className="text-white">{previewStudent.class} - {previewStudent.section}</span>
                       </div>
                       <div className="flex items-start">
-                        <span className="font-bold text-indigo-600 w-32">Phone:</span>
-                        <span className="text-gray-900">{previewStudent.phone}</span>
+                        <span className="font-bold text-white w-32">Phone:</span>
+                        <span className="text-white">{previewStudent.phone}</span>
                       </div>
                       <div className="flex items-start">
-                        <span className="font-bold text-indigo-600 w-32">Father:</span>
-                        <span className="text-gray-900">{previewStudent.fatherName}</span>
+                        <span className="font-bold text-white w-32">Father:</span>
+                        <span className="text-white">{previewStudent.fatherName}</span>
                       </div>
                       <div className="flex items-start">
-                        <span className="font-bold text-indigo-600 w-32">DOB:</span>
-                        <span className="text-gray-900">{new Date(previewStudent.dob).toLocaleDateString()}</span>
+                        <span className="font-bold text-white w-32">DOB:</span>
+                        <span className="text-white">{new Date(previewStudent.dob).toLocaleDateString()}</span>
                       </div>
                     </div>
                   </div>
