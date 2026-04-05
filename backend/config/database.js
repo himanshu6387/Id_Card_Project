@@ -1,15 +1,19 @@
-    import mongoose from "mongoose";
+import mongoose from "mongoose";
 
-    const connectDB = async () => {
-        try {
-            // mongoose.connect('mongodb://himanshu_db_user:Himanshu123@cluster0.wphdsts.mongodb.net/idcardDB?retryWrites=true&w=majority&appName=Cluster0')
-            // mongoose.connect('mongodb://himanshu_db_user:LXjlMT0cOTFVb1l7@cluster0.wphdsts.mongodb.net/?appName=Cluster0')
-            mongoose.connect('mongodb+srv://ravitejasmartbridge_db_user:q7NozX2FeDDyYibp@idcardproject.lxhpbiz.mongodb.net/?appName=IdCardProject')
-            // mongoose.connect('mongodb://localhost:27017/id_Card')
-            console.log('MongoDB Connected Successfully..')
-        } catch (error) {
-            console.log(error)
-        }
+const connectDB = async () => {
+    try {
+        const MONGO_URI =
+            process.env.NODE_ENV === "production"
+                ? process.env.MONGO_URI   // SRV (Render)
+                : process.env.MONGO_LOCAL // non-SRV (local)
+
+        await mongoose.connect(MONGO_URI);
+
+        console.log("MongoDB Connected Successfully..");
+    } catch (error) {
+        console.log("MongoDB Error:", error);
+        process.exit(1); // important for Render
     }
+};
 
-    export default connectDB
+export default connectDB;
