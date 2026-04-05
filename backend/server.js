@@ -28,12 +28,11 @@ const allowedOrigins = [
 // ✅ CORS (this alone handles OPTIONS correctly)
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: true, // allow all origins dynamically
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // ❌ DO NOT USE app.options("*")
 
