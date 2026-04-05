@@ -2,7 +2,9 @@
 
     const connectDB = async () => {
         try {
-            mongoose.connect('mongodb+srv://himanshu_db_user:LXjlMT0cOTFVb1l7@cluster0.wphdsts.mongodb.net/?appName=Cluster0')
+            // mongoose.connect('mongodb://himanshu_db_user:Himanshu123@cluster0.wphdsts.mongodb.net/idcardDB?retryWrites=true&w=majority&appName=Cluster0')
+            mongoose.connect('mongodb://himanshu_db_user:LXjlMT0cOTFVb1l7@cluster0.wphdsts.mongodb.net/?appName=Cluster0')
+            // mongoose.connect('mongodb://localhost:27017/id_Card')
             console.log('MongoDB Connected Successfully..')
         } catch (error) {
             console.log(error)
