@@ -21,7 +21,7 @@ const CollegeDashboard = () => {
   const fetchStudents = async () => {
     try {
       // const response = await axios.get('http://localhost:5000/api/college/students');
-      const response = await axios.get('https://id-card-project-4.onrender.com/api/college/students');
+      const response = await axios.get('http://localhost:5500/api/college/students');
       setStudents(response.data);
     } catch (error) {
       toast.error('Failed to fetch students');
@@ -32,7 +32,7 @@ const CollegeDashboard = () => {
     setLoading(true);
     try {
       // const response = await axios.post('http://localhost:5000/api/college/generate-link');
-      const response = await axios.post('https://id-card-project-4.onrender.com/api/college/generate-link');
+      const response = await axios.post('http://localhost:5500/api/college/generate-link');
       setGeneratedLink(response.data.link);
       toast.success('Student data collection link generated!');
     } catch (error) {
@@ -44,7 +44,7 @@ const CollegeDashboard = () => {
   const downloadExcel = async () => {
     try {
       // const response = await axios.get('http://localhost:5000/api/college/download-excel', {
-      const response = await axios.get('https://id-card-project-4.onrender.com/api/college/download-excel', {
+      const response = await axios.get('http://localhost:5500/api/college/download-excel', {
         responseType: 'blob',
       });
       
@@ -65,7 +65,7 @@ const CollegeDashboard = () => {
   const downloadImages = async () => {
     try {
       // const response = await axios.get('http://localhost:5000/api/college/download-images', {
-      const response = await axios.get('https://id-card-project-4.onrender.com/api/college/download-images', {
+      const response = await axios.get('http://localhost:5500/api/college/download-images', {
         responseType: 'blob',
       });
       
@@ -92,7 +92,7 @@ const CollegeDashboard = () => {
 
     setGeneratingIDCards(true);
     try {
-      const response = await axios.get('https://id-card-project-4.onrender.com/api/college/generate-id-cards', {
+      const response = await axios.get('http://localhost:5500/api/college/generate-id-cards', {
       // const response = await axios.get('http://localhost:5000/api/college/generate-id-cards', {
         responseType: 'blob',
       });
@@ -365,105 +365,116 @@ const CollegeDashboard = () => {
 
       {/* ID Card Preview Modal */}
       {showIDCardPreview && previewStudent && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-6 flex justify-between items-center">
-              <div>
-                <h2 className="text-2xl font-bold text-white">Student ID Card Preview</h2>
-                <p className="text-indigo-100">{previewStudent.name}</p>
-              </div>
-              <button
-                onClick={() => setShowIDCardPreview(false)}
-                className="text-white hover:text-gray-200 transition-colors"
-              >
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+  <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-3 sm:p-4">
+    
+    <div className="bg-white rounded-2xl sm:rounded-3xl w-full max-w-md sm:max-w-lg lg:max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+
+      {/* Modal Header */}
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-4 sm:px-7 py-4 sm:py-6 flex justify-between items-center">
+        <div>
+          <h2 className="text-base sm:text-xl font-bold text-white">Student ID Card Preview</h2>
+          <p className="text-indigo-200 text-xs sm:text-sm mt-1">{previewStudent.name}</p>
+        </div>
+        <button
+          onClick={() => setShowIDCardPreview(false)}
+          className="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-lg"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div className="p-4 sm:p-6">
+
+        {/* ID Card */}
+        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 sm:p-3 rounded-xl sm:rounded-2xl">
+          <div className="bg-white rounded-lg sm:rounded-xl overflow-hidden">
+
+            {/* Card Header */}
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-3 sm:px-5 py-3 sm:py-4 text-center">
+              <h3 className="text-white text-sm sm:text-lg font-bold">{user.collegeName}</h3>
+              <p className="text-indigo-200 text-[10px] sm:text-xs mt-1 uppercase">Student Identity Card</p>
             </div>
 
-            <div className="p-8">
-              {/* ID Card Preview */}
-              <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 rounded-3xl shadow-2xl">
-                <div className="bg-white rounded-2xl p-8 shadow-xl">
-                  {/* Header */}
-                  <div className="text-center mb-6 pb-4 border-b-2 border-indigo-600">
-                    <h3 className="text-3xl font-bold text-white">{user.collegeName}</h3>
-                    <p className="text-lg font-semibold text-white mt-2">STUDENT ID CARD</p>
-                  </div>
+            {/* Card Body */}
+            <div className="p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:gap-5">
 
-                  <div className="flex gap-8">
-                    {/* Left: Image */}
-                    <div className="flex-shrink-0">
-                      <img
-                        src={previewStudent.studentImage}
-                        alt={previewStudent.name}
-                        className="w-48 h-48 rounded-full object-cover ring-4 ring-indigo-500"
-                      />
-                    </div>
-
-                    {/* Right: Details */}
-                    <div className="flex-1 space-y-3">
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Name:</span>
-                        <span className="text-white font-semibold">{previewStudent.name}</span>
-                      </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Admission No:</span>
-                        <span className="text-white font-mono">{previewStudent.admissionNo}</span>
-                      </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Class:</span>
-                        <span className="text-white">{previewStudent.class} - {previewStudent.section}</span>
-                      </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Phone:</span>
-                        <span className="text-white">{previewStudent.phone}</span>
-                      </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">Father:</span>
-                        <span className="text-white">{previewStudent.fatherName}</span>
-                      </div>
-                      <div className="flex items-start">
-                        <span className="font-bold text-white w-32">DOB:</span>
-                        <span className="text-white">{new Date(previewStudent.dob).toLocaleDateString()}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Footer */}
-                  <div className="mt-6 pt-4 border-t-2 border-indigo-600 text-center">
-                    <p className="text-gray-600 italic">Valid for Academic Year 2024-2025</p>
-                  </div>
-                </div>
+              {/* Photo */}
+              <div className="flex flex-col items-center gap-2 flex-shrink-0">
+                <img
+                  src={previewStudent.studentImage}
+                  alt={previewStudent.name}
+                  className="w-20 h-24 sm:w-24 sm:h-28 object-cover rounded-lg border-2 border-indigo-500"
+                />
+                <span className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1 rounded-full">
+                  {previewStudent.admissionNo}
+                </span>
               </div>
 
-              {/* Info */}
-              <div className="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-                <div className="flex">
-                  <svg className="w-5 h-5 text-blue-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                  </svg>
-                  <div className="ml-3">
-                    <p className="text-sm text-blue-700">
-                      This is a preview. Download all ID cards as ZIP to get high-quality printable versions with QR codes.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              {/* Details */}
+              <div className="flex-1">
+                
+                <p className="text-[9px] sm:text-[10px] font-bold text-indigo-500 uppercase mb-2 border-b pb-1">
+                  Personal Details
+                </p>
 
-              <div className="mt-6 flex justify-end">
-                <button
-                  onClick={() => setShowIDCardPreview(false)}
-                  className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-colors"
-                >
-                  Close Preview
-                </button>
+                {[
+                  { label: 'Full Name', value: previewStudent.name },
+                  { label: 'Father', value: previewStudent.fatherName },
+                  { label: 'DOB', value: new Date(previewStudent.dob).toLocaleDateString() },
+                  { label: 'Phone', value: previewStudent.phone },
+                ].map(({ label, value }) => (
+                  <div key={label} className="flex gap-2 mb-1">
+                    <span className="text-[9px] sm:text-[10px] w-20 text-gray-400">{label}</span>
+                    <span className="text-xs sm:text-sm">{value}</span>
+                  </div>
+                ))}
+
+                <p className="text-[9px] sm:text-[10px] font-bold text-indigo-500 mt-3 mb-2 border-b pb-1">
+                  Academic Details
+                </p>
+
+                {[
+                  { label: 'Class', value: previewStudent.class },
+                  { label: 'Section', value: previewStudent.section },
+                ].map(({ label, value }) => (
+                  <div key={label} className="flex gap-2 mb-1">
+                    <span className="text-[9px] sm:text-[10px] w-20 text-gray-400">{label}</span>
+                    <span className="text-xs sm:text-sm">{value}</span>
+                  </div>
+                ))}
               </div>
             </div>
+
+            {/* Footer */}
+            <div className="px-4 py-2 flex justify-between text-xs">
+              <span className="text-indigo-500">2024–2025</span>
+              <span className="bg-indigo-600 text-white px-2 py-1 rounded-full text-[10px]">Active</span>
+            </div>
+
           </div>
         </div>
-      )}
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 mt-4">
+          <button
+            onClick={() => setShowIDCardPreview(false)}
+            className="w-full sm:w-auto px-4 py-2 border border-indigo-500 text-indigo-600 rounded-lg text-sm"
+          >
+            Close
+          </button>
+          <button
+            onClick={generateIDCards}
+            className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm"
+          >
+            Download
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+)}
+
 
       <Footer />
     </div>

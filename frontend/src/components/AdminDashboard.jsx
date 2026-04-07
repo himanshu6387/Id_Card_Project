@@ -25,7 +25,7 @@ const AdminDashboard = () => {
 
   const fetchColleges = async () => {
     try {
-      const response = await axios.get('https://id-card-project-4.onrender.com/api/admin/colleges');
+      const response = await axios.get('http://localhost:5500/api/admin/colleges');
       setColleges(response.data);
     } catch (error) {
       toast.error('Failed to fetch colleges');
@@ -37,7 +37,7 @@ const AdminDashboard = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post('https://id-card-project-4.onrender.com/api/admin/create-college', formData);
+      const response = await axios.post('http://localhost:5500/api/admin/create-college', formData);
       const password = response.data.college.generatedPassword;
       setGeneratedPassword(password);
       setCreatedEmail(formData.email);
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
     
     setDeleting(true);
     try {
-      await axios.delete(`https://id-card-project-4.onrender.com/api/admin/delete-college/${collegeToDelete._id}`);
+      await axios.delete(`http://localhost:5500/api/admin/delete-college/${collegeToDelete._id}`);
       toast.success(`${collegeToDelete.collegeName} deleted successfully!`);
       setDeleteConfirmModal(false);
       setCollegeToDelete(null);

@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get('https://id-card-project-4.onrender.com/api/auth/me');
+      const response = await axios.get('http://localhost:5500/api/auth/me');
       setUser(response.data);
     } catch (error) {
       localStorage.removeItem('token');
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
 const login = async (email, password) => {
   const response = await axios.post(
-    "https://id-card-project-4.onrender.com/api/auth/login",
+    "http://localhost:5500/api/auth/login",
     { email, password },
     {
       headers: {

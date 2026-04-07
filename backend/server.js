@@ -17,21 +17,16 @@ const app = express();
 // ✅ Connect DB
 connectDB();
 
-// ✅ Allowed Origins
-const allowedOrigins = [
-  "https://id-card-project-six.vercel.app",
-  "https://www.allaroundaid.com",
-  "https://allaroundaid.com",
-  "http://localhost:5173",
-];
 
-// ✅ CORS (this alone handles OPTIONS correctly)
-app.use(
-  cors({
-    origin: true, // allow all origins dynamically
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: 'http://localhost:5173',  // exact origin, not '*'
+  credentials: true,                // allow cookies/auth headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+// Also explicitly handle OPTIONS preflight
+app.options('*', cors());
 
 
 // ❌ DO NOT USE app.options("*")
