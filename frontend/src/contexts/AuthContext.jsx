@@ -31,7 +31,8 @@ export const AuthProvider = ({ children }) => {
 
 const login = async (email, password) => {
   const response = await axios.post(
-    "https://id-card-project-backend.onrender.com/api/auth/login",
+    // "https://id-card-project-backend.onrender.com/api/auth/login",
+    "http://localhost:5500/api/auth/login",
     { email, password },
     {
       headers: {
@@ -72,3 +73,4 @@ const login = async (email, password) => {
 
 // ✅ export useAuth hook for easy access
 export const useAuth = () => useContext(AuthContext);
+

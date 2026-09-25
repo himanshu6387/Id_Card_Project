@@ -8,6 +8,8 @@ const generateToken = (id) => {
 
 
 export const login = async (req, res) => {
+
+  console.log('Hiii I am login function')
   try {
     console.log("➡️ LOGIN API HIT");
     console.log("📩 RAW BODY:", req.body);
