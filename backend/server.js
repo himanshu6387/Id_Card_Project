@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/database.js";
+import dns from 'dns'
 
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 import adminRoutes from "./routes/adminRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import collegeRoutes from "./routes/collegeRoutes.js";
